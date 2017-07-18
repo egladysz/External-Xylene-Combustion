@@ -4,11 +4,11 @@ import game.Game;
 import game.Screen;
 
 
-public class Enemy2 extends Enemy{
+public class ChaseBot extends Enemy{
 	
 	public long demoInternalClock = 0;
 	
-	public Enemy2(double ex, double wy) {
+	public ChaseBot(double ex, double wy) {
 		super(ex, wy, "Enemy2.png");
 		speed = 60/Game.FPS;
 		setHealth(4);

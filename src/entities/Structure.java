@@ -8,8 +8,8 @@ public abstract class Structure extends Entity {
 	
 	public double speed, angle;
 	
-	public Structure(double ex, double wy, String ing) {
-		super(ex, wy, ing);
+	public Structure(double x, double y, String ing) {
+		super(x, y, ing);
 		speed = 0;
 	}
 	

@@ -8,12 +8,12 @@ public abstract class Entity {
 	private double x, y;
 	private int width, height, depth;
 	private Image image;
-	public Entity(double ex, double wy, String ing) {
+	public Entity(double x, double y, String ing) {
 		setImage(ing);
 		width = image.getWidth(null);
 		height = image.getHeight(null);
-		x = ex;
-		y = wy;
+		this.x = x;
+		this.y = y;
 		depth = width/2;
 	}
 	

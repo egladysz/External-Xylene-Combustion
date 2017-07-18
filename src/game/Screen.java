@@ -38,7 +38,6 @@ public class Screen extends JPanel implements KeyListener{
 	public Screen(){
 		data = new PictureHolder();
 		
-		setFocusable(false);
 		setFocusable(true);
 		Dimension d = new Dimension(data.getImage("SpaceBackground.png").getWidth(null),data.getImage("SpaceBackground.png").getHeight(null));
 		
@@ -87,10 +86,7 @@ public class Screen extends JPanel implements KeyListener{
 		g.drawString("Score: " + you.score, this.getWidth()/4, this.getHeight()/2);
 		g.setColor(Color.RED);
 		g.setFont(g.getFont().deriveFont(60.0f));
-		if (you.win)
-			g.drawString("VICTORY", this.getWidth()/4, this.getHeight()/3);
-		else
-			g.drawString("THE END", this.getWidth()/4, this.getHeight()/3);
+		g.drawString((you.win?"VICTORY":"THE END"), this.getWidth()/4, this.getHeight()/3);
 	}
 
 	private void drawTitle(Graphics g) {
@@ -116,15 +112,11 @@ public class Screen extends JPanel implements KeyListener{
 	
 	//Draws all structure items except the player.
 	private void drawStructures(Graphics g) {
-		ArrayList<Structure> temp = new ArrayList<Structure>();
-		temp.addAll(structureList);
-		for (Entity d : temp){
+		for (Entity d : structureList){
 			g.drawImage(d.getImage(),(int) (d.getX()-d.getWidth()/2),(int) (d.getY()-d.getHeight()/2), null);
 		}
 		
-		ArrayList<Explosion> temp2 = new ArrayList<Explosion>();
-		temp2.addAll(explosionList);
-		for (Entity d : temp2){
+		for (Entity d : explosionList){
 			g.drawImage(d.getImage(),(int) (d.getX()-d.getWidth()/2),(int) (d.getY()-d.getHeight()/2), null);
 		}
 	}
@@ -139,21 +131,15 @@ public class Screen extends JPanel implements KeyListener{
 	}
 	//draws bullets. separate ArrayList things differentiate player Bullets and Enemy Bullets
 	private void drawBullets(Graphics g) {
-		ArrayList<Bullet> temp = new ArrayList<Bullet>();
-		temp.addAll(bulletList);
-		for (Bullet d : temp){
+		for (Bullet d : bulletList){
 			if(d != null)
 				g.drawImage(d.getImage(),(int) (d.getX()-d.getWidth()/2),(int) (d.getY()-d.getHeight()/2), null);
 		}
-		ArrayList<Bullet> temp2 = new ArrayList<Bullet>();
-		temp2.addAll(playerList);
-		for (Bullet d : temp2){
+		for (Bullet d : playerList){
 			if (d != null)
 				g.drawImage(d.getImage(),(int) (d.getX()-d.getWidth()/2),(int) (d.getY()-d.getHeight()/2), null);
 		}
-		ArrayList<Item> temp3 = new ArrayList<Item>();
-		temp3.addAll(itemList);
-		for (Item d : temp3){
+		for (Item d : itemList){
 			g.drawImage(d.getImage(),(int) (d.getX()-d.getWidth()/2),(int) (d.getY()-d.getHeight()/2), null);
 		}
 	}
@@ -233,7 +219,7 @@ public class Screen extends JPanel implements KeyListener{
 	}
 
 	//destroys the specified thing if it exists in any ArrayList.
-	public static  void kill(Entity thing) {
+	public static void kill(Entity thing) {
 		for (Entity d : structureList){
 			if (d.equals(thing)) {
 				structureList.remove(d);
@@ -275,13 +261,13 @@ public class Screen extends JPanel implements KeyListener{
 	private void spawn() {
 		// TODO Make an ACTUAL LEVEL!
 		
-		if (frameNum == 120)structureList.add(new Enemy2(Screen.width/2,0));
+		if (frameNum == 120)structureList.add(new ChaseBot(Screen.width/2,0));
 		
-		if (frameNum % 15 == 0 && ((frameNum > 240 && frameNum < 360)||(frameNum > 480 && frameNum < 720))) structureList.add(new Enemy2(Screen.width/2,0));
+		if (frameNum % 15 == 0 && ((frameNum > 240 && frameNum < 360)||(frameNum > 480 && frameNum < 720))) structureList.add(new ChaseBot(Screen.width/2,0));
 		
 		if (frameNum == 1000 || frameNum == 1400) {
 			for (int i = 0; i <= 4; i++){
-				structureList.add(new Enemy2(Screen.width/4*i,0));
+				structureList.add(new ChaseBot(Screen.width/4*i,0));
 			}
 		}
 		if (frameNum == 1200 || frameNum == 1600) {
